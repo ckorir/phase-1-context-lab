@@ -1,4 +1,68 @@
-/* Your Code Here */
+// /* Your Code Here */
+
+// Function for creating an employee record from
+function createEmployeeRecord(array) {
+    return {
+      firstName: array[0],
+      familyName: array[1],
+      title: array[2],
+      payPerHour: array[3],
+      timeInEvents: [],
+      timeOutEvents: []
+    };
+}
+// Function for creating an employee
+function createEmployeeRecords(arrOfArrays) {
+    return arrOfArrays.map(createEmployeeRecord);
+}
+
+// Function for creating an employee time in event
+const createTimeInEvent = function (dateTime) {
+    const [date, hour] = dateTime.split(" ");
+    this.timeInEvents.push({
+        type: "TimeIn",
+        date,
+        hour: parseInt(hour, 10)
+    });
+    return this;
+}
+
+// Function for creating an employee time out event
+const createTimeOutEvent = function (dateTime) {
+    const [date, hour] = dateTime.split(" ");
+    this.timeOutEvents.push({
+        type: "TimeOut",
+        date,
+        hour: parseInt(hour, 10)
+    });
+    return this;
+}
+
+// Function for finding work hours
+const hoursWorkedOnDate = function (date) {
+    const timeIn = this.timeInEvents.find(event => event.date === date);
+    const timeOut = this.timeOutEvents.find(event => event.date === date);
+    const hoursWorked = (timeOut.hour - timeIn.hour) / 100;
+    return hoursWorked;
+}
+
+// Function for calculating wages earned
+function wagesEarnedOnDate(date) {
+    const hoursWorked = hoursWorkedOnDate.call(this, date);
+    return hoursWorked * this.payPerHour;
+}
+
+// Function for finding Employee by first name
+function findEmployeeByFirstName(array, firstName) {
+    return array.find(employee => employee.firstName === firstName);
+}
+
+// Function for calculating payrollers for the employees
+function calculatePayroll(employeeRecords) {
+    return employeeRecords.reduce((totalPayroll, employee) => {
+        return totalPayroll + allWagesFor.call(employee);
+    }, 0);
+}
 
 /*
  We're giving you this function. Take a look at it, you might see some usage
@@ -20,4 +84,3 @@ const allWagesFor = function () {
 
     return payable
 }
-
